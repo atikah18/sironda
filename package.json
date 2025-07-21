@@ -11,6 +11,11 @@
         "vite": "^5.0"
     },
     "dependencies": {
-        "admin-lte": "3.2"
+        "admin-lte": "3.2",
+        "bootstrap": "^4.6.2",
+        "fullcalendar": "^6.1.18",
+        "jquery": "^3.7.1",
+        "jquery-ui": "^1.14.1",
+        "moment": "^2.30.1"
     }
 }

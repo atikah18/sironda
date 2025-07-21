@@ -29,6 +29,12 @@
 
 <link href="https://cdn.jsdelivr.net/gh/StartBootstrap/startbootstrap-sb-admin-2@master/css/sb-admin-2.min.css" rel="stylesheet">
 
+<!-- AdminLTE CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+<!-- FullCalendar CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     </head>
     <body class="sb-nav">
@@ -42,19 +48,19 @@
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-secondary bg-gradient">
             
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3 " href="{{ url('dash') }}">SiRonda  </a>
+            <a class="navbar-brand ps-3 " href="{{ url('home') }}">SiRonda  </a>
            
             <!-- Navbar-->
              <span class="text-white">Sistem Informasi Laporan Kegiatan Backup Data Server BPS Provinsi Banten</span>
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <!-- Navbar-->
             <ul class="navbar-nav ">
-                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+                 <li class="nav-item"><a class="nav-link active" aria-current="page"  href="{{ url('home') }}">Home</a></li>
                         <!-- <li class="nav-item"><a class="nav-link" href="#">Link</a></li> -->
                           <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="{{ url('jadwal') }}">Jadwal</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
