@@ -12,7 +12,7 @@ class userController extends Controller
     {
     $user = Auth::user();
     $data = User::all();
-    return view('simfoni.user',compact('data','user'));
+    return view('sironda.daftaruser',compact('data','user'));
     }
 
     public function create()
@@ -48,7 +48,7 @@ class userController extends Controller
                 'name'=>'required',
                 'email'=>'required|email|unique:users,email',
                 'role'=>'required',
-                'password'=>'required|min:8|confirmed'
+                'password'=>'required|min:4|confirmed'
             ],[
                 'name.required'=>'Nama harus diisi',
                 'email.required'=>'Email harus diisi',
@@ -84,6 +84,6 @@ class userController extends Controller
     public function destroy(string $id)
     {
         User::where('id', $id)->delete();
-        return redirect()->to('pengguna')->with('success','Berhasil menghapus data!');
+        return redirect()->to('user')->with('success','Berhasil menghapus data!');
     }
 }

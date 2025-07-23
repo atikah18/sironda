@@ -61,7 +61,7 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ url('jadwal') }}">Jadwal</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="{{ url('user') }}">Daftar Akun</a></li>
                                 <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
@@ -72,6 +72,15 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     @if($user!=null) 
                         <li><a class="dropdown-item" href="">{{ $user->name }}</a></li>
+                        @if ($user->role == "1")
+               <li><a class="dropdown-item" href="">Admin</a></li>
+                @endif
+                @if ($user->role == "2")
+                 <li><a class="dropdown-item" href="">Ketua</a></li>
+                @endif
+                @if ($user->role == "3")
+                 <li><a class="dropdown-item" href="">Anggota</a></li>
+                @endif 
                         <a class="nav-link text-black" href="{{ url('logout') }}">
                                 <div class="sb-nav-link-icon text-black"><i class="fa-solid fa-right-from-bracket"></i></div>
                                 Logout
