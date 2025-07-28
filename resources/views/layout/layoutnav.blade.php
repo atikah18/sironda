@@ -71,7 +71,7 @@
                     <a class="nav-link dropdown-toggle " id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     @if($user!=null) 
-                        <li><a class="dropdown-item" href="">{{ $user->name }}</a></li>
+                <li><a class="dropdown-item" href="">{{ $user->name }}</a></li>
                         @if ($user->role == "1")
                <li><a class="dropdown-item" href="">Admin</a></li>
                 @endif

@@ -6,13 +6,14 @@ use App\Http\Controllers\userController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\jadwalController;
 use App\Http\Controllers\editUserController;
+use App\Http\Controllers\addInfoController;
 
 Route::resource('home', homeController::class);
 Route::resource('jadwal', jadwalController::class);
 Route::get('/', function () {
   return redirect('home');
 });
-
+Route::resource('addInfo', addInfoController::class);
 Route::get('/login', [loginController::class,'index'])->name('login');
 Route::post('/login', [loginController::class,'login']);
 Route::resource('user', userController::class);
