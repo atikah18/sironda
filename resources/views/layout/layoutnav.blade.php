@@ -58,14 +58,16 @@
                  <li class="nav-item"><a class="nav-link active" aria-current="page"  href="{{ url('home') }}">Home</a></li>
                         <!-- <li class="nav-item"><a class="nav-link" href="#">Link</a></li> -->
                           <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Monitoring backup</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{{ url('jadwal') }}">Jadwal</a></li>
-                                <li><a class="dropdown-item" href="{{ url('user') }}">Daftar Akun</a></li>
+                                <li><a class="dropdown-item" href="{{ url('jadwal') }}">Kalendar</a></li>
+                                 <li><a class="dropdown-item" href="{{ url('pengjadwalan') }}">Jadwal Monitoring</a></li>
+                                <li><a class="dropdown-item" href="{{ url('') }}">Laporan Monitoring backup/restore</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href='{{ url('addInfo/create') }}'>Update Informasi Aplikasi Server</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page"  href="{{ url('user') }}">Daftar Akun</a></li>
                 <li class="nav-item dropdown">
 
                     <a class="nav-link dropdown-toggle " id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>

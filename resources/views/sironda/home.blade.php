@@ -35,9 +35,9 @@
             Daftar Database untuk di-backup
         </div>
         <div class="card-body">
-            <div class="pb-3">
+            <!-- <div class="pb-3">
                 <a href='{{ url('addInfo/create') }}' class="btn btn-primary">Tambah Database</a>
-            </div>
+            </div> -->
         <div class="table-responsive">
             <table id="dataTable" class="datatable-table">
                 <thead>
