@@ -62,7 +62,7 @@
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ url('jadwal') }}">Kalendar</a></li>
                                  <li><a class="dropdown-item" href="{{ url('pengjadwalan') }}">Jadwal Monitoring</a></li>
-                                <li><a class="dropdown-item" href="{{ url('') }}">Laporan Monitoring backup/restore</a></li>
+                                <li><a class="dropdown-item" href="{{ url('reports') }}">Laporan Monitoring backup/restore</a></li>
                                 <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href='{{ url('addInfo/create') }}'>Update Informasi Aplikasi Server</a></li>
                             </ul>

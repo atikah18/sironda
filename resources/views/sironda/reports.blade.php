@@ -18,42 +18,31 @@
     
     <!-- TOMBOL TAMBAH PENGGUNA -->
     <div class="pb-3">
-        <a href="{{ url('pengjadwalan/create') }}" class="btn btn-primary">Tambah </a>
+        <!-- <a href="{{ url('reports/create') }}" class="btn btn-primary">Tambah </a> -->
     </div>  
     <div class="table-responsive">
     <table id="dataTable" class="datatable-table">
         <thead>
             <tr>
-                <th scope="col">Nama Petugas</th>
+                <th scope="col">Jenis</th>
                 <th scope="col">Mulai tanggal</th>
                 <th scope="col">Hingga tanggal</th>
-                <th scope="col">Jenis</th>
-                <th scope="col">Status</th>
-                <th scope="col">Keterangan</th>
+                <th scope="col">File</th>
+                <th scope="col">Image</th>
+                <th scope="col">Notes</th>
                 <th scope="col">Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $item)
+            @foreach ($data1 as $item)
             <tr>
-                <td>{{ $item->user->name }}</td>
+                <td>{{ $item->type }}</td>
                 <td>{{ $item->start_date_range }}</td>
                 <td>{{ $item->end_date_range }}</td>
-                <!-- <td>{{ $item->type }}</td> -->
+                <td>{{ $item->log_file }}</td>
                 
-                @if ($item->type == "1")
-                <td>Mingguan (Backup)</td>
-                @endif
-                @if ($item->type == "2")
-                <td>Bulanan (Restore)</td>
-                @endif
-                @if ($item->status == "1")
-                <td>Assigned</td>
-                @endif
-                @if ($item->status == "2")
-                <td>Rescheduled</td>
-                @endif
-                <td>{{ $item->update_note }}</td>
+               <td>{{ $item->ss_results }}</td>
+                <td>{{ $item->notes }}</td>
                 <td>
                     <a href='{{ url('pengjadwalan/'.$item->id) }}' class="btn btn-warning btn-sm">Edit</a>
                     <form onsubmit="return confirm('Yakin akan menghapus data?')" class="d-inline" action="{{ url('pengjadwalan/'.$item->id) }}" method="POST">

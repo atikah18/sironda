@@ -8,6 +8,7 @@ use App\Http\Controllers\jadwalController;
 use App\Http\Controllers\editUserController;
 use App\Http\Controllers\addInfoController;
 use App\Http\Controllers\tasksController;
+use App\Http\Controllers\reportsController;
 
 Route::resource('home', homeController::class);
 Route::resource('jadwal', jadwalController::class);
@@ -16,6 +17,10 @@ Route::get('/', function () {
 });
 Route::resource('addInfo', addInfoController::class);
 Route::resource('pengjadwalan', tasksController::class);
+Route::resource('reports', reportsController::class);
+
+Route::get('/reports/create/{id}', [reportsController::class, 'create'])
+     ->name('reports.create');
 Route::get('/login', [loginController::class,'index'])->name('login');
 Route::post('/login', [loginController::class,'login']);
 Route::resource('user', userController::class);
