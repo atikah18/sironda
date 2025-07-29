@@ -46,11 +46,13 @@ class addInfoController extends Controller
                 'folder_aplikasi.required' => 'Aplikasi harus diisi',
                 'nama_db.required' => 'Nama database harus diisi'
             ]);
-
+        date_default_timezone_set('Asia/Jakarta');
+        $user = Auth::user()->name;
             List_db::create([
                 'folder_aplikasi' => $request->folder_aplikasi,
                 'nama_db' => $request->nama_db,
-                'status' => '1'
+                'status' => '1',
+                'update_note' => 'dibuat pada '.now().' oleh '.$user,
             ]);
             return redirect()->to('home')->with('success','Berhasil menambahkan data');
         }

@@ -16,15 +16,15 @@
         </div>      
     <div class="card-body">
 
-    <form action='{{ url('tasks') }}' method='post'>
+    <form action='{{ url('pengjadwalan') }}' method='post'>
     @csrf
     <a href="{{ url('pengjadwalan') }}" class="btn btn-secondary"> Kembali</a>
         <div class="my-3 p-3 bg-body rounded shadow-sm">
             <div class="mb-3 row">
-                <label for="nama_petugas" class="col-sm-2 col-form-label">Nama Petugas</label>
+                <label for="user_id" class="col-sm-2 col-form-label">Nama Petugas</label>
                     <div class="col-sm-10">
                         <!-- <input type="text" class="form-control" name='nama_petugas' value="{{ Session::get('nama_petugas') }}" id="nama_petugas"> -->
-                        <select class="form-control select2" style="width: 100%;" name="nama_petugas" id="nama_petugas">
+                        <select class="form-control select2" style="width: 100%;" name="user_id" id="user_id">
                         <option></option>
                             @foreach ($user as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -33,13 +33,22 @@
                     </div>
             </div>
             <div class="mb-3 row">
-                <label for="rentang_waktu" class="col-sm-2 col-form-label">Rentang Waktu</label>
+                <label for="daterange" class="col-sm-2 col-form-label">Rentang Waktu</label>
                     <div class="col-sm-10">
                          <!-- <label for="daterange">Select Date Range:</label> -->
-                      <input type="text" id="daterange" class="form-control" />
+                      <input type="text" id="daterange" name="daterange" class="form-control" />
                     </div>
             </div>
-
+            <div class="mb-3 row">
+                <label for="type" class="col-sm-2 col-form-label">Type</label>
+                    <div class="col-sm-10">
+                        <!-- <input type="text" class="form-control" name='nama_petugas' value="{{ Session::get('nama_petugas') }}" id="nama_petugas"> -->
+                        <select class="form-control select2" style="width: 100%;" name="type" id="type">
+                            <option value="1">Backup</option>
+                            <option value="2">Restore</option>
+                        </select>
+                    </div>
+            </div>
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label"></label>
                     <div class="col-sm-10">

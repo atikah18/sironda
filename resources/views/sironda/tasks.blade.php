@@ -30,6 +30,7 @@
                 <th scope="col">Jenis</th>
                 <th scope="col">Status</th>
                 <th scope="col">Keterangan</th>
+                <th scope="col">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -38,7 +39,7 @@
                 <td>{{ $item->user->name }}</td>
                 <td>{{ $item->start_date_range }}</td>
                 <td>{{ $item->end_date_range }}</td>
-                <td>{{ $item->type }}</td>
+                <!-- <td>{{ $item->type }}</td> -->
                 
                 @if ($item->type == "1")
                 <td>Mingguan (Backup)</td>
@@ -47,10 +48,10 @@
                 <td>Bulanan (Restore)</td>
                 @endif
                 @if ($item->status == "1")
-                <td>Submitted</td>
+                <td>Assigned</td>
                 @endif
                 @if ($item->status == "2")
-                <td>Approved</td>
+                <td>Rescheduled</td>
                 @endif
                 <td>{{ $item->update_note }}</td>
                 <td>

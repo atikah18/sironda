@@ -27,38 +27,112 @@ class tasksController extends Controller
         $data = Tasks::all();
         return view('form_tasks.create', compact('data','user'));
     }
+     public function show(string $id)
+    {
+    $user = Auth::user();
+    $data = Tasks::findorfail($id);
+    return view('form_tasks.edit',compact('data','user'));
+    }
     public function store(Request $request)
     {
-        Session::flash('nama_petugas',$request->nama_petugas);
-        Session::flash('rentang_waktu',$request->rentang_waktu);
+        Session::flash('user_id',$request->user_id);
+        Session::flash('daterange',$request->daterange);
+        Session::flash('type',$request->type);
         // Session::flash('is_abk',$request->is_abk);
 
-        $hasKelasForJabatan = Tasks::query()
-                              ->where('folder_aplikasi', $request->input('folder_aplikasi'))
-                              ->exists();
+       $dates = explode(' - ', $request->daterange);
+// dd($request->daterange);
+        $start = $dates[0];
+        $end   = $dates[1];
+        date_default_timezone_set('Asia/Jakarta');
+        $user = Auth::user()->name;
       
-        if($hasKelasForJabatan)
+        $hasKelasForJadwal = Tasks::where([
+            ['start_date_range', '=', $request->input('start_date_range')],
+            ['end_date_range', '=', $request->input('end_date_range')],
+        ])->exists();
+        if($hasKelasForJadwal)
         {
             return back()->withErrors([
-                'folder_aplikasi' => 'Jabatan sudah terdaftar pada database'
+                'daterange' => 'Jadwal sudah terdaftar pada database'
             ]);
         } else {
             $request->validate([
-                'folder_aplikasi' => 'required',
-                'nama_db' => 'required'
+                'user_id' => 'required',
+                'daterange' => 'required'
                 // 'is_abk' => 'required'
             ],[
-                'folder_aplikasi.required' => 'Aplikasi harus diisi',
-                'nama_db.required' => 'Nama database harus diisi'
+                'user_id.required' => 'Nama harus diisi',
+                'daterange.required' => 'Jadwal harus diisi'
             ]);
 
-            List_db::create([
-                'folder_aplikasi' => $request->folder_aplikasi,
-                'nama_db' => $request->nama_db,
-                'status' => '1'
+            Tasks::create([
+                'user_id' => $request->user_id,
+                'start_date_range' => $start,
+                'end_date_range' => $end,
+                'type'=> $request->type,
+                'status' => '1',
+                'update_note' => 'diajukan oleh '.$user.' pada '.now()
             ]);
-            return redirect()->to('home')->with('success','Berhasil menambahkan data');
+            return redirect()->to('pengjadwalan')->with('success','Berhasil menambahkan data');
         }
+    }
+    public function update(Request $request, string $id)
+    {
+       Session::flash('user_id',$request->user_id);
+        Session::flash('daterange',$request->daterange);
+        Session::flash('type',$request->type);
+        // Session::flash('is_abk',$request->is_abk);
+
+       $dates = explode(' - ', $request->daterange);
+// dd($request->daterange);
+        $start = $dates[0];
+        $end   = $dates[1];
+        date_default_timezone_set('Asia/Jakarta');
+        $user = Auth::user()->name;
+      
+        $hasKelasForJadwal = Tasks::where([
+            ['start_date_range', '=', $request->input('start_date_range')],
+            ['end_date_range', '=', $request->input('end_date_range')],
+        ])->exists();
+        if($hasKelasForJadwal)
+        {
+            return back()->withErrors([
+                'daterange' => 'Jadwal sudah terdaftar pada database'
+            ]);
+        } else {
+            $request->validate([
+                'user_id' => 'required',
+                'daterange' => 'required',
+                'type' => 'required'
+                // 'is_abk' => 'required'
+            ],[
+                'user_id.required' => 'Nama harus diisi',
+                'daterange.required' => 'Jadwal harus diisi',
+                'type.required' => 'Jenis harus diisi'
+            ]);
+        }
+        $data = [
+             'user_id' => $request->user_id,
+                'start_date_range' => $start,
+                'end_date_range' => $end,
+                'type'=> $request->type,
+                 'status' => '2',
+                'update_note' => 'diedit oleh '.$user.' pada '.now()
+        ];
+        
+        $app = Tasks::findorfail($id);
+        $app->update($data);
+        return redirect()->to('pengjadwalan')->with('success','Berhasil melakukan update data!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+         Tasks::where('id', $id)->delete();
+        return redirect()->to('pengjadwalan')->with('success','Berhasil menghapus data!');
     }
     
     
