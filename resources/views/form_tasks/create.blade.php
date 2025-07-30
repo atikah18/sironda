@@ -16,9 +16,9 @@
         </div>      
     <div class="card-body">
 
-    <form action='{{ url('pengjadwalan') }}' method='post'>
+    <form action='{{ url('penjadwalan') }}' method='post'>
     @csrf
-    <a href="{{ url('pengjadwalan') }}" class="btn btn-secondary"> Kembali</a>
+    <a href="{{ url('penjadwalan') }}" class="btn btn-secondary"> Kembali</a>
         <div class="my-3 p-3 bg-body rounded shadow-sm">
             <div class="mb-3 row">
                 <label for="user_id" class="col-sm-2 col-form-label">Nama Petugas</label>

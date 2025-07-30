@@ -16,7 +16,7 @@ Route::get('/', function () {
   return redirect('home');
 });
 Route::resource('addInfo', addInfoController::class);
-Route::resource('pengjadwalan', tasksController::class);
+Route::resource('penjadwalan', tasksController::class);
 // Route::get('/reports', reportsController::class);
 Route::get('/reports/create/{id}', [reportsController::class, 'create'])
      ->name('reports.create');

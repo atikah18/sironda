@@ -74,7 +74,7 @@ class tasksController extends Controller
                 'status' => '1',
                 'update_note' => 'diajukan oleh '.$user.' pada '.now()
             ]);
-            return redirect()->to('pengjadwalan')->with('success','Berhasil menambahkan data');
+            return redirect()->to('penjadwalan')->with('success','Berhasil menambahkan data');
         }
     }
     public function update(Request $request, string $id)
@@ -123,7 +123,7 @@ class tasksController extends Controller
         
         $app = Tasks::findorfail($id);
         $app->update($data);
-        return redirect()->to('pengjadwalan')->with('success','Berhasil melakukan update data!');
+        return redirect()->to('penjadwalan')->with('success','Berhasil melakukan update data!');
     }
 
     /**
@@ -132,7 +132,7 @@ class tasksController extends Controller
     public function destroy(string $id)
     {
          Tasks::where('id', $id)->delete();
-        return redirect()->to('pengjadwalan')->with('success','Berhasil menghapus data!');
+        return redirect()->to('penjadwalan')->with('success','Berhasil menghapus data!');
     }
     
     

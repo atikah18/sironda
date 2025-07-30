@@ -18,7 +18,7 @@
     
     <!-- TOMBOL TAMBAH PENGGUNA -->
     <div class="pb-3">
-        <a href="{{ url('pengjadwalan/create') }}" class="btn btn-primary">Tambah </a>
+        <a href="{{ url('penjadwalan/create') }}" class="btn btn-primary">Tambah </a>
     </div>  
     <div class="table-responsive">
     <table id="dataTable" class="datatable-table">
@@ -55,8 +55,8 @@
                 @endif
                 <td>{{ $item->update_note }}</td>
                 <td>
-                    <a href='{{ url('pengjadwalan/'.$item->id) }}' class="btn btn-warning btn-sm">Edit</a>
-                    <form onsubmit="return confirm('Yakin akan menghapus data?')" class="d-inline" action="{{ url('pengjadwalan/'.$item->id) }}" method="POST">
+                    <a href='{{ url('penjadwalan/'.$item->id) }}' class="btn btn-warning btn-sm">Edit</a>
+                    <form onsubmit="return confirm('Yakin akan menghapus data?')" class="d-inline" action="{{ url('penjadwalan/'.$item->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" name="submit" class="btn btn-danger btn-sm">Hapus</button>

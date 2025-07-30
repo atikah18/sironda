@@ -17,7 +17,7 @@
 
     <form action='{{ url('reports') }}' method='post' id="form" enctype="multipart/form-data">
     @csrf
-    <a href="{{ url('pengjadwalan') }}" class="btn btn-secondary">Kembali</a>
+    <a href="{{ url('penjadwalan') }}" class="btn btn-secondary">Kembali</a>
         <div class="my-3 p-3 bg-body rounded shadow-sm">
             <div class="mb-3 row">
                  <!-- <label for="task_id" class="col-sm-2 col-form-label">task_id</label> -->

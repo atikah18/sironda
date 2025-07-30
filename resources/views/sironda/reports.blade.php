@@ -55,7 +55,7 @@
                 <td><a href="{{ asset('storage/' . $item->ss_result) }}"target="_blank">Lihat screenshot</a></td> 
                 @endif
                <!-- <td>{{ $item->ss_results }}</td> -->
-                <td>{{ $item->catatan_monitoring }}</td>
+                <td class="wrap-cell">{{ $item->catatan_monitoring }}</td>
                 @if ($item->status == "1")
                 <td>Submitted</td>
                 @endif
@@ -78,6 +78,13 @@
             @endforeach
         </tbody>
     </table>    
+    <style>
+  .wrap-cell {
+    white-space: normal !important;
+    word-wrap: break-word;
+    max-width: 200px; /* ubah sesuai kebutuhan */
+  }
+</style>
     </div>
 </div>
 </div>

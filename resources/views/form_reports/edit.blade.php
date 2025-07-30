@@ -18,7 +18,7 @@
     <form action='{{ url('reports/'.$data->id) }}' method='post' id="form" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-    <a href="{{ url('pengjadwalan') }}" class="btn btn-secondary">Kembali</a>
+    <a href="{{ url('penjadwalan') }}" class="btn btn-secondary">Kembali</a>
         <div class="my-3 p-3 bg-body rounded shadow-sm">
              <div class="mb-3 row">
                     <div class="col-sm-10">
