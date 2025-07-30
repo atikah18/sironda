@@ -42,11 +42,13 @@
             <table id="dataTable" class="datatable-table">
                 <thead>
                     <tr>
-                        <th class="col-6">Repository Aplikasi</th>
-                        <th class="col-6">Nama Database</th>
-                        <th class="col-6">Status</th>
-                        <th class="col-6">Keterangan</th>
+                        <th class="col-3">Repository Aplikasi</th>
+                        <th class="col-3">Nama Database</th>
+                        <th class="col-3">Status</th>
+                        <th class="col-3">Keterangan</th>
+                        @if($user!=null)
                         <th scope="col">Aksi</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -62,6 +64,7 @@
                         <td>Approved</td>
                     @endif
                     <td>{{ $item->update_note}}</td>
+                    @if($user!=null)
                     <td class="d-flex gap-2" >
                         <a href='{{ url('addInfo/'.$item->id) }}' class="btn btn-warning btn-sm">Edit</a>
                         <form onsubmit="return confirm('Yakin akan menghapus data?')" class="d-inline" action="{{ url('addInfo/'.$item->id) }}" method="POST">
@@ -70,6 +73,7 @@
                             <button type="submit" name="submit" class="btn btn-danger btn-sm">Hapus</button>
                         </form>
                     </td>
+                    @endif
                 </tr>
                 @endforeach
                 </tbody>

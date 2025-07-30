@@ -17,9 +17,12 @@
     <div class="card-body">
     
     <!-- TOMBOL TAMBAH PENGGUNA -->
+     @if ($user->role == "1")
+                
     <div class="pb-3">
         <a href="{{ url('user/create') }}" class="btn btn-primary">Tambah Akun</a>
     </div>  
+                @endif
     <div class="table-responsive">
     <table id="dataTable" class="datatable-table">
         <thead>
@@ -27,11 +30,16 @@
                 <th scope="col">Nama</th>
                 <th scope="col">Email</th>
                 <th scope="col">Peran</th>
+                 @if($user->role=="1")
                 <th scope="col">Aksi</th>
+                @endif
             </tr>
         </thead>
         <tbody>
+            
             @foreach ($data as $item)
+            @if ($user->role =="3")
+                @if ($user->name==$item->name)
             <tr>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->email }}</td>
@@ -47,13 +55,37 @@
                 <!-- <td>{{ $item->role }}</td> -->
                 <td>
                     <a href='{{ url('edituser/'.$item->id) }}' class="btn btn-warning btn-sm">Edit</a>
+                    
+                </td>
+            </tr>
+            @endif
+            @endif
+            @if ($user->role <>"3")
+            <tr>
+                <td>{{ $item->name }}</td>
+                <td>{{ $item->email }}</td>
+                @if ($item->role == "1")
+                <td>Admin</td>
+                @endif
+                @if ($item->role == "2")
+                <td>Ketua</td>
+                @endif
+                @if ($item->role == "3")
+                <td>Anggota</td>
+                @endif
+                <!-- <td>{{ $item->role }}</td> -->
+                 @if($user->role=="1") <!-- selain admin dan dia sendiri ga bisa aksi-->
+                <td>
+                    <a href='{{ url('edituser/'.$item->id) }}' class="btn btn-warning btn-sm">Edit</a>
                     <form onsubmit="return confirm('Yakin akan menghapus data?')" class="d-inline" action="{{ url('user/'.$item->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" name="submit" class="btn btn-danger btn-sm">Hapus</button>
                     </form>
                 </td>
+                @endif
             </tr>
+             @endif
             @endforeach
         </tbody>
     </table>    

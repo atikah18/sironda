@@ -17,9 +17,11 @@
     <div class="card-body">
     
     <!-- TOMBOL TAMBAH PENGGUNA -->
+     @if ($user->role <> "3")
     <div class="pb-3">
         <a href="{{ url('penjadwalan/create') }}" class="btn btn-primary">Tambah </a>
     </div>  
+     @endif
     <div class="table-responsive">
     <table id="dataTable" class="datatable-table">
         <thead>
@@ -35,6 +37,8 @@
         </thead>
         <tbody>
             @foreach ($data as $item)
+            @if ($user->role == "3")
+            @if ($item->user->name == $user->name)
             <tr>
                 <td>{{ $item->user->name }}</td>
                 <td>{{ $item->start_date_range }}</td>
@@ -55,15 +59,52 @@
                 @endif
                 <td>{{ $item->update_note }}</td>
                 <td>
+                    
+                       @if ($user->role == "3")
+                
+               
+                    <a href='{{ url('reports/create/'.$item->id) }}' class="btn btn-success btn-sm">Upload</a>
+                     @endif
+                </td>
+            </tr>
+            @endif
+            @endif
+            @if ($user->role <> "3")
+            <tr>
+                <td>{{ $item->user->name }}</td>
+                <td>{{ $item->start_date_range }}</td>
+                <td>{{ $item->end_date_range }}</td>
+                <!-- <td>{{ $item->type }}</td> -->
+                
+                @if ($item->type == "1")
+                <td>Mingguan (Backup)</td>
+                @endif
+                @if ($item->type == "2")
+                <td>Bulanan (Restore)</td>
+                @endif
+                @if ($item->status == "1")
+                <td>Assigned</td>
+                @endif
+                @if ($item->status == "2")
+                <td>Rescheduled</td>
+                @endif
+                <td>{{ $item->update_note }}</td>
+                <td>
+                    
                     <a href='{{ url('penjadwalan/'.$item->id) }}' class="btn btn-warning btn-sm">Edit</a>
                     <form onsubmit="return confirm('Yakin akan menghapus data?')" class="d-inline" action="{{ url('penjadwalan/'.$item->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" name="submit" class="btn btn-danger btn-sm">Hapus</button>
                     </form>
+                       @if ($user->role == "3")
+                
+               
                     <a href='{{ url('reports/create/'.$item->id) }}' class="btn btn-success btn-sm">Upload</a>
+                     @endif
                 </td>
             </tr>
+            @endif
             @endforeach
         </tbody>
     </table>    

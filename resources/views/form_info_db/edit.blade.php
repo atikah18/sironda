@@ -33,7 +33,8 @@
                     </div>
             </div>
             
-            
+             @if ($user->role <> "3")
+               
             <div class="mb-3 row">
                 <label for="role" class="col-sm-2 col-form-label">Status</label>
                     <div class="col-sm-10">
@@ -44,6 +45,7 @@
                          </select>
                     </div>
             </div>
+             @endif
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label"></label>
                     <div class="col-sm-10">

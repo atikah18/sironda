@@ -75,9 +75,9 @@
                                 </div>
                               </form>
                                <!-- TOMBOL TAMBAH PENGGUNA -->
-    <div class="pb-3 d-flex justify-content-center">
+    <!-- <div class="pb-3 d-flex justify-content-center">
         <a href="{{ url('user/create') }}">Register</a>
-    </div>  
+    </div>   -->
                         </div>
                     </div>
                 </div>

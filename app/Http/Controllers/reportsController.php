@@ -29,6 +29,22 @@ class reportsController extends Controller
         $data1 = Backup_reports::all();
         return view('form_reports.create', compact('data','data1','user'));
     }
+    public function update_status()
+    {
+        // $username = Auth::user()->name;
+        // $userrole = Auth::user()->role;
+        // $sat = Satker::all();
+        // $jab = Jabatan::all();
+        // Update all rows in the table
+    //     date_default_timezone_set('Asia/Jakarta');
+    //     Abk::query()->update([
+    //     'updated_at' => now(),
+    //      ]);
+
+    // // // Redirect or return a response
+    // // return redirect()->back()->with('success', 'All rows updated successfully!');
+    //     return redirect()->to('ubahdata')->with('success','Berhasil update data!');
+    }
     public function show(string $id)
     {
         $user = Auth::user();

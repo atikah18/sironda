@@ -29,9 +29,10 @@ class tasksController extends Controller
     }
      public function show(string $id)
     {
-    $user = Auth::user();
+        $auth=Auth::user();
+    $user = User::all();
     $data = Tasks::findorfail($id);
-    return view('form_tasks.edit',compact('data','user'));
+    return view('form_tasks.edit',compact('data','user','auth'));
     }
     public function store(Request $request)
     {

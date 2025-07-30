@@ -27,10 +27,10 @@
                                 <option selected value="{{ $data->user_id }}">{{ $data->user->name  }}</option>
                                 @foreach ($user as $item)
                                     
-                                    @if  ($user->id <> $data->user_id) 
-                                    
-                                    <option value="{{ $item->id }}">{{ $item->user->name }}</option>
-                                    @endif
+                                
+                                    @if (($data->user_id)<>($item->id))
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                   @endif
                                 @endforeach
                         </select>
                 </div>

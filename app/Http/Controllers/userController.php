@@ -66,7 +66,7 @@ class userController extends Controller
                 'role' => $request->role,
                 'password' => $request->password,
             ]);
-            return redirect()->to('login')->with('success','Berhasil menambahkan data!');
+            return redirect()->to('user')->with('success','Berhasil menambahkan data!');
         }
 
     }
