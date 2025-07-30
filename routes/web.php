@@ -17,10 +17,15 @@ Route::get('/', function () {
 });
 Route::resource('addInfo', addInfoController::class);
 Route::resource('pengjadwalan', tasksController::class);
-Route::resource('reports', reportsController::class);
-
+// Route::get('/reports', reportsController::class);
 Route::get('/reports/create/{id}', [reportsController::class, 'create'])
      ->name('reports.create');
+Route::get('/reports', [reportsController::class, 'index'])->name('reports.index');
+Route::post('/reports', [reportsController::class, 'store'])->name('reports.store');
+Route::get('/reports/{id}', [reportsController::class, 'show'])->name('reports.show'); // pakai show untuk edit
+Route::put('/reports/{id}', [reportsController::class, 'update'])->name('reports.update');
+Route::delete('/reports/{id}', [reportsController::class, 'destroy'])->name('reports.destroy');
+
 Route::get('/login', [loginController::class,'index'])->name('login');
 Route::post('/login', [loginController::class,'login']);
 Route::resource('user', userController::class);

@@ -30,27 +30,49 @@
                 <th scope="col">File</th>
                 <th scope="col">Image</th>
                 <th scope="col">Notes</th>
+                <th scope="col">Status</th>
                 <th scope="col">Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($data1 as $item)
+            @foreach ($data as $item)
             <tr>
-                <td>{{ $item->type }}</td>
-                <td>{{ $item->start_date_range }}</td>
-                <td>{{ $item->end_date_range }}</td>
-                <td>{{ $item->log_file }}</td>
-                
-               <td>{{ $item->ss_results }}</td>
-                <td>{{ $item->notes }}</td>
+               @if ($item->tasks->type == "1")
+                <td>Mingguan (Backup)</td>
+                @endif
+                @if ($item->tasks->type == "2")
+                <td>Bulanan (Restore)</td>
+                @endif
+                <td>{{ $item->tasks->start_date_range }}</td>
+                <td>{{ $item->tasks->end_date_range }}</td>
+                <!-- <td>{{ $item->log_file }}</td> -->
+                 
+                <!-- Link untuk unduh file -->
+                @if($item->log_file)
+                <td><a href="{{ asset('storage/' . $item->log_file) }}"target="_blank">Lihat File</a></td> 
+                @endif
+                @if($item->ss_result)
+                <td><a href="{{ asset('storage/' . $item->ss_result) }}"target="_blank">Lihat screenshot</a></td> 
+                @endif
+               <!-- <td>{{ $item->ss_results }}</td> -->
+                <td>{{ $item->catatan_monitoring }}</td>
+                @if ($item->status == "1")
+                <td>Submitted</td>
+                @endif
+                @if ($item->status == "2")
+                <td>Approved</td>
+                @endif
+                @if ($item->status == "3")
+                <td>Rejected</td>
+                @endif
                 <td>
-                    <a href='{{ url('pengjadwalan/'.$item->id) }}' class="btn btn-warning btn-sm">Edit</a>
-                    <form onsubmit="return confirm('Yakin akan menghapus data?')" class="d-inline" action="{{ url('pengjadwalan/'.$item->id) }}" method="POST">
+                    <a href='{{ url('reports/'.$item->id) }}' class="btn btn-warning btn-sm">Edit</a>
+                    <form onsubmit="return confirm('Yakin akan menghapus data?')" class="d-inline" action="{{ url('reports/'.$item->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" name="submit" class="btn btn-danger btn-sm">Hapus</button>
                     </form>
-                    <a href='{{ url('reports/create/'.$item->id) }}' class="btn btn-success btn-sm">Upload</a>
+                    <!-- <a href='{{ url('reports/create/'.$item->id) }}' class="btn btn-success btn-sm">Upload</a> -->
                 </td>
             </tr>
             @endforeach
