@@ -29,21 +29,35 @@ class reportsController extends Controller
         $data1 = Backup_reports::all();
         return view('form_reports.create', compact('data','data1','user'));
     }
-    public function update_status()
+    public function approve_reports(string $id)
     {
         // $username = Auth::user()->name;
         // $userrole = Auth::user()->role;
         // $sat = Satker::all();
         // $jab = Jabatan::all();
         // Update all rows in the table
-    //     date_default_timezone_set('Asia/Jakarta');
-    //     Abk::query()->update([
-    //     'updated_at' => now(),
-    //      ]);
+        // date_default_timezone_set('Asia/Jakarta');
+        $app = Backup_reports::findorfail($id);
+        $app->update([
+        'status' => '2',
+         ]);
 
-    // // // Redirect or return a response
-    // // return redirect()->back()->with('success', 'All rows updated successfully!');
-    //     return redirect()->to('ubahdata')->with('success','Berhasil update data!');
+         return redirect()->to('reports')->with('success','Berhasil update status!');
+    }
+    public function reject_reports(string $id)
+    {
+        // $username = Auth::user()->name;
+        // $userrole = Auth::user()->role;
+        // $sat = Satker::all();
+        // $jab = Jabatan::all();
+        // Update all rows in the table
+        // date_default_timezone_set('Asia/Jakarta');
+        $app = Backup_reports::findorfail($id);
+        $app->update([
+        'status' => '3',
+         ]);
+
+         return redirect()->to('reports')->with('secondary','Berhasil update status!');
     }
     public function show(string $id)
     {

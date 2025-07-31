@@ -24,6 +24,7 @@
     <table id="dataTable" class="datatable-table">
         <thead>
             <tr>
+                <th scope="col">Nama Petugas</th>
                 <th scope="col">Jenis</th>
                 <th scope="col">Mulai tanggal</th>
                 <th scope="col">Hingga tanggal</th>
@@ -39,6 +40,7 @@
             @if ($user->role == "3")
             @if ($item->user->name == $user->name)
             <tr>
+                   <td>{{ $item->user->name }}</td>
                @if ($item->tasks->type == "1")
                 <td>Mingguan (Backup)</td>
                 @endif
@@ -61,11 +63,11 @@
                 @if ($item->status == "1")
                 <td>Submitted</td>
                 @endif
-                @if ($item->status == "2")
-                <td>Approved</td>
+               @if ($item->status == "2")
+                <td> <button type="submit" name="submit" class="btn btn-success btn-sm" disabled>Approved</button></td>
                 @endif
                 @if ($item->status == "3")
-                <td>Rejected</td>
+                <td><button type="submit" name="submit" class="btn btn-danger btn-sm" disabled>Rejected</button></td>
                 @endif
                 <td>
                     <a href='{{ url('reports/'.$item->id) }}' class="btn btn-warning btn-sm">Edit</a>
@@ -81,6 +83,7 @@
             @endif
             @if ($user->role <> "3")
             <tr>
+                   <td>{{ $item->user->name }}</td>
                @if ($item->tasks->type == "1")
                 <td>Mingguan (Backup)</td>
                 @endif
@@ -104,20 +107,25 @@
                 <td>Submitted</td>
                 @endif
                 @if ($item->status == "2")
-                <td>Approved</td>
+                <td> <button type="submit" name="submit" class="btn btn-success btn-sm" disabled>Approved</button></td>
                 @endif
                 @if ($item->status == "3")
-                <td>Rejected</td>
+                <td><button type="submit" name="submit" class="btn btn-danger btn-sm" disabled>Rejected</button></td>
                 @endif
                 <td>
-                    <a href='{{ url('reports/'.$item->id) }}' class="btn btn-warning btn-sm">Edit</a>
-                    <form onsubmit="return confirm('Yakin akan menghapus data?')" class="d-inline" action="{{ url('reports/'.$item->id) }}" method="POST">
+                 
+                    <!-- <a href='' class="btn btn-success btn-sm">Terima</a> -->
+                     <!-- <a href='' class="btn btn-secondary btn-sm">Tolak</a> -->
+                     <form onsubmit="return confirm('Setujui Laporan?')" class="d-inline" action="{{ url('approve_reports/'.$item->id) }}" method="POST">
                         @csrf
-                        @method('DELETE')
-                        <button type="submit" name="submit" class="btn btn-danger btn-sm">Hapus</button>
+                        @method('PUT')
+                        <button type="submit" name="submit" class="btn btn-success btn-sm">Terima</button>
                     </form>
-                    <a href='' class="btn btn-success btn-sm">Terima</a>
-                     <a href='' class="btn btn-secondary btn-sm">Tolak</a>
+                     <form onsubmit="return confirm('Tolak Laporan?')" class="d-inline" action="{{ url('reject_reports/'.$item->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" name="submit" class="btn btn-secondary btn-sm">Tolak</button>
+                    </form>
                 </td>
             </tr>
             

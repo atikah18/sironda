@@ -35,6 +35,8 @@ Route::delete('/reports/{id}', [reportsController::class, 'destroy'])->name('rep
 
 Route::resource('user', userController::class);
 Route::resource('edituser', editUserController::class);
-
+Route::put('approve_reports/{id}', [reportsController::class, 'approve_reports'])->name('approve.reports');
+Route::put('reject_reports/{id}', [reportsController::class, 'reject_reports'])->name('reject.reports');
+    
  Route::get('/logout', [loginController::class, 'logout']);
  });
