@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Models\Tasks;
+use App\Models\Backup_reports;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -18,8 +19,8 @@ class tasksController extends Controller
        
         $user = Auth::user();
         $data = Tasks::all();
-
-        return view('sironda.tasks', compact('data','user'));
+        $reports =Backup_reports::orderBy('task_id', 'asc')->get();
+        return view('sironda.tasks', compact('data','user','reports'));
     }
     public function create()
     {
