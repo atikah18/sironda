@@ -32,7 +32,7 @@
                         <input type="email" class="form-control" name='email' value="{{ old('nama', $data->email) }}" id="email">
                     </div>
             </div>
-            @if($user->role==$data->role)
+            @if($user->email==$data->email)
             <div class="mb-3 row">
                 <label for="kata sandi" class="col-sm-2 col-form-label">Password <i class="fas fa-eye-slash" onclick="showpass()"></i> </label>
             

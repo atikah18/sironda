@@ -42,12 +42,12 @@
             <table id="dataTable" class="datatable-table">
                 <thead>
                     <tr>
-                        <th class="col-3">Repository Aplikasi</th>
-                        <th class="col-3">Nama Database</th>
-                        <th class="col-3">Status</th>
-                        <th class="col-3">Keterangan</th>
+                        <th class="col-2">Repository Aplikasi</th>
+                        <th class="col-2">Nama Database</th>
+                        <th class="col-2">Status</th>
+                        <th class="col-2">Keterangan</th>
                         @if($user!=null)
-                        <th scope="col">Aksi</th>
+                        <th scope="col-5">Aksi</th>
                         @endif
                     </tr>
                 </thead>
@@ -65,14 +65,15 @@
                     @endif
                     <td>{{ $item->update_note}}</td>
                     @if($user!=null)
-                    <td class="d-flex gap-2" >
-                        <a href='{{ url('addInfo/'.$item->id) }}' class="btn btn-warning btn-sm">Edit</a>
+                    <td class="d-flex gap-2">
+                        <a href="{{ url('addInfo/'.$item->id) }}" class="btn btn-warning btn-sm">Edit</a>
                         <form onsubmit="return confirm('Yakin akan menghapus data?')" class="d-inline" action="{{ url('addInfo/'.$item->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" name="submit" class="btn btn-danger btn-sm">Hapus</button>
-                        </form>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" name="submit" class="btn btn-danger btn-sm">Hapus</button>
+                     </form>
                     </td>
+
                     @endif
                 </tr>
                 @endforeach

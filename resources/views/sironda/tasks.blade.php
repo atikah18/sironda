@@ -32,8 +32,8 @@
                 <th scope="col">Jenis</th>
                 <th scope="col">Status</th>
                 <th scope="col">Keterangan</th>
-                <th scope="col">Aksi</th>
                 <th scope="col">Progress</th>
+                <th scope="col">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -59,6 +59,19 @@
                 <td>Rescheduled</td>
                 @endif
                 <td>{{ $item->update_note }}</td>
+                @php $hasReport = false; @endphp
+
+                @foreach ($reports as $item2)
+                    @if ($item2->task_id == $item->id)
+                        <td><button type="submit" name="submit" class="btn btn-success btn-sm" disabled>Sudah ada Laporan</button></td>
+                        @php $hasReport = true; @endphp
+                        @break
+                    @endif
+                @endforeach
+
+                @if (!$hasReport)
+                    <td>Belum ada Laporan</td>
+                @endif
                 <td>
                     
                        @if ($user->role == "3")

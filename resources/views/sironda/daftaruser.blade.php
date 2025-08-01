@@ -30,7 +30,7 @@
                 <th scope="col">Nama</th>
                 <th scope="col">Email</th>
                 <th scope="col">Peran</th>
-                 @if($user->role=="1")
+                 @if($user->role<>"2")
                 <th scope="col">Aksi</th>
                 @endif
             </tr>
