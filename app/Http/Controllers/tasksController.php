@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Tasks;
 use App\Models\Backup_reports;
 use App\Models\User;
+use App\Notifications\TaskAssigned;
 use Illuminate\Http\Request;
 
 class tasksController extends Controller
@@ -68,7 +69,15 @@ class tasksController extends Controller
                 'daterange.required' => 'Jadwal harus diisi'
             ]);
 
-            Tasks::create([
+            // Tasks::create([
+            //     'user_id' => $request->user_id,
+            //     'start_date_range' => $start,
+            //     'end_date_range' => $end,
+            //     'type'=> $request->type,
+            //     'status' => '1',
+            //     'update_note' => 'diajukan oleh '.$user.' pada '.now()
+            // ]);
+            $task = Tasks::create([
                 'user_id' => $request->user_id,
                 'start_date_range' => $start,
                 'end_date_range' => $end,
@@ -76,6 +85,13 @@ class tasksController extends Controller
                 'status' => '1',
                 'update_note' => 'diajukan oleh '.$user.' pada '.now()
             ]);
+
+            // Notify user
+            $assignedUser = User::find($request->user_id);
+            if ($assignedUser) {
+                $assignedUser->notify(new TaskAssigned($task, $request->daterange));
+            }
+
             return redirect()->to('penjadwalan')->with('success','Berhasil menambahkan data');
         }
     }
