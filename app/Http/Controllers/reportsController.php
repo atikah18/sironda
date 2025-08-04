@@ -8,6 +8,7 @@ use App\Models\Tasks;
 use App\Models\Backup_reports;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class reportsController extends Controller
 {
@@ -200,7 +201,10 @@ class reportsController extends Controller
      */
     public function destroy(string $id)
     {
+         $app =Backup_reports::findorfail($id);
          Backup_reports::where('id', $id)->delete();
+         Storage::disk('public')->delete($app->log_file);
+         Storage::disk('public')->delete($app->ss_result);
         return redirect()->to('reports')->with('success','Berhasil menghapus data!');
     }
     
