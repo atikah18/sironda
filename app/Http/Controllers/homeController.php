@@ -28,7 +28,7 @@ class homeController extends Controller
             'title' => $task->user->name ?? 'Laporan',
             'start' => $task->start_date_range,
             'user' => $task->user->name, // Optional
-            'color' => $task->type == '1' ? '#28a745' : '#dc3545' 
+            'color' => $task->type == '1' ? '#0073b7' : '#f39c12' 
         ];
     }
         return view('sironda.home', compact('data','user','events'));

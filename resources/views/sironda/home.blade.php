@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   <!-- Main content -->
   <section class="content">
+    <div class="row">
    <div class="container-fluid px-4">
     
     <h1 class="mt-4">Informasi database</h1>
@@ -103,11 +104,21 @@ document.addEventListener('DOMContentLoaded', function() {
        
      </div>
     </div>
-
+<div class="container mt-4">
      <h2 class="text-center m-4">Jadwal Kegiatan</h2>
-                 
-            <div id="calendar"></div>
-     
+                 <div class="card mb-4">
+           <div class="d-flex align-items-center gap-3 mb-3">
+  <div>
+    <span class="badge" style="background-color:#0073b7;">&nbsp;&nbsp;</span> Mingguan (backup)
+  </div>
+  <div>
+    <span class="badge" style="background-color:#f39c12;">&nbsp;&nbsp;</span> Bulanan (backup & restore)
+  </div>
+</div>
+<div id="calendar"></div>
+</div>
+     </div>
+     </div>
   </section>
 
 <!-- jQuery -->
