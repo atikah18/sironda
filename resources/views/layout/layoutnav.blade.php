@@ -46,22 +46,22 @@
                                 <li><a class="dropdown-item" href='{{ url('addInfo/create') }}'>Update Informasi Aplikasi Server</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page"  href="{{ url('user') }}">Daftar Akun</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page"  href="{{ url('user') }}">Akun</a></li>
                         @endif
                 <li class="nav-item dropdown">
 
                     <a class="nav-link dropdown-toggle " id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     @if($user!=null) 
-                <li><a class="dropdown-item" href="">{{ $user->name }}</a></li>
-                        @if ($user->role == "1")
-               <li><a class="dropdown-item" href="">Admin</a></li>
+                <li><a class="dropdown-item disabled">{{ $user->name }}</a></li>
+                @if ($user->role == "1")
+               <li class="dropdown-item disabled" >Admin</div></li>
                 @endif
                 @if ($user->role == "2")
-                 <li><a class="dropdown-item" href="">Ketua</a></li>
+                 <li><a class="dropdown-item disabled" >Ketua</a></li>
                 @endif
                 @if ($user->role == "3")
-                 <li><a class="dropdown-item" href="">Anggota</a></li>
+                 <li><a class="dropdown-item disabled" >Anggota</a></li>
                 @endif 
                         <a class="nav-link text-black" href="{{ url('logout') }}">
                                 <div class="sb-nav-link-icon text-black"><i class="fa-solid fa-right-from-bracket"></i></div>
@@ -160,7 +160,7 @@
 
                 </main>
                 <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
+                    <div class="container-fluid px-15">
                         <div class="d-flex align-items-center justify-content-between small">
                             <div class="text-muted">Copyright &copy; BPS Provinsi Banten 2025</div>
                         </div>

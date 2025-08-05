@@ -5,30 +5,50 @@
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-<!-- fullCalendar CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+<!-- FullCalendar CSS -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+
+<!-- FullCalendar JS -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 
 <!-- START DATA -->
 @section('konten')
-<div class="container-fluid px-4">
-    <!-- <h1 class="mt-4">Formasi Jabatan</h1>
-    <ol class="breadcrumb mb-4">
-       <li class="breadcrumb-item">BPS di Provinsi Banten</li>
-    </ol> -->
 
-</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const events = <?php echo json_encode($events);?>;
+    let calendarEl = document.getElementById('calendar');
+    //var Calendar = FullCalendar.Calendar;
+    let calendar = new FullCalendar.Calendar(calendarEl, {
+        //initialView: 'dayGridMonth',
+       // height: 'auto',
+        //themeSystem: 'bootstrap',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay',
+            backgroundColor: '#f56954',
+            },
+        events: events // Data from controller
+    });
+
+    calendar.render();
+});
+</script>
+
 
   <!-- Main content -->
   <section class="content">
    <div class="container-fluid px-4">
+    
     <h1 class="mt-4">Informasi database</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item">Server windows BPS Provinsi Banten</li>
     </ol>
-    <div class="row">
-    </div>
-    <div class="card mb-4">
-    </div>
+   
+    
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
@@ -47,7 +67,7 @@
                         <th class="col-2">Status</th>
                         <th class="col-2">Keterangan</th>
                         @if($user!=null)
-                        <th scope="col-5">Aksi</th>
+                        <th scope="col-2">Aksi</th>
                         @endif
                     </tr>
                 </thead>
@@ -65,7 +85,7 @@
                     @endif
                     <td>{{ $item->update_note}}</td>
                     @if($user!=null)
-                    <td class="d-flex gap-2">
+                    <td class="gap-2">
                         <a href="{{ url('addInfo/'.$item->id) }}" class="btn btn-warning btn-sm">Edit</a>
                         <form onsubmit="return confirm('Yakin akan menghapus data?')" class="d-inline" action="{{ url('addInfo/'.$item->id) }}" method="POST">
                         @csrf
@@ -80,9 +100,14 @@
                 </tbody>
             </table>
         </div>
-        </div>
+       
+     </div>
     </div>
-</div>
+
+     <h2 class="text-center m-4">Jadwal Kegiatan</h2>
+                 
+            <div id="calendar"></div>
+     
   </section>
 
 <!-- jQuery -->
