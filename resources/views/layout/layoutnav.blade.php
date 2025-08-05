@@ -33,7 +33,7 @@
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <!-- Navbar-->
             <ul class="navbar-nav ">
-                 <li class="nav-item"><a class="nav-link active" aria-current="page"  href="{{ url('home') }}">Home</a></li>
+                 <li class="nav-item"><a class="nav-link active" aria-current="page"  href="{{ url('home') }}">Beranda</a></li>
                         <!-- <li class="nav-item"><a class="nav-link" href="#">Link</a></li> -->
                         @if($user!=null)  
                         <li class="nav-item dropdown">

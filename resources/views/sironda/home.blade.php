@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     <div class="card mb-4">
         <div class="card-header">
-            <i class="fas fa-table me-1"></i>
+            <i class="fas fa-table me-5"></i>
             Daftar Database untuk di-backup
         </div>
         <div class="card-body">
