@@ -51,8 +51,8 @@ class tasksController extends Controller
         $user = Auth::user()->name;
       
         $hasKelasForJadwal = Tasks::where([
-            ['start_date_range', '=', $request->input('start_date_range')],
-            ['end_date_range', '=', $request->input('end_date_range')],
+            ['start_date_range', '=', $start],
+            ['end_date_range', '=', $end],
         ])->exists();
         if($hasKelasForJadwal)
         {

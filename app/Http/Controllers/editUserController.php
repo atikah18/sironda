@@ -16,25 +16,51 @@ class editUserController extends Controller
     }
     public function update(Request $request, string $id)
     {
-        $request->validate([
-        'nama'=>'required',
+         Session::flash('name',$request->name);
+        Session::flash('email',$request->email);
+        Session::flash('role',$request->role);
+        Session::flash('password',$request->password);
+        $akun = User::findorfail($id);
+        $role=$akun->role;
+        $pw=$akun->password;
+        if($request->role){
+            $role=$request->role;
+        }
+        if($request->password){
+            $pw=$request->password;
+$request->validate([
+              'name'=>'required',
+                'email'=>'required',
+                'password'=>'required|min:4|confirmed'
+                ],[
+                'name.required'=>'nama harus diisi',
+                'email.required'=>'email harus diisi',
+                'password.required'=>'Password harus diisi',
+                'password.confirmed' => 'Konfirmasi password tidak sesuai'
+                  ]);
+        }  else {
+             $request->validate([
+        'name'=>'required',
         'email'=>'required',
-        'role'=>'required',
+        // 'role'=>'required',
         ],[
-        'nama.required'=>'nama harus diisi',
+        'name.required'=>'nama harus diisi',
         'email.required'=>'email harus diisi',
-        'role.required'=>'role harus diisi',
-        ]);
+        // 'role.required'=>'role harus diisi',
+            ]);}
+       
+       
 
        
       
         $data = [
-            'nama' => $request->nama,
+             'name' => $request->name,
             'email' => $request->email,
-            'role' => $request->role,
+            'role' => $role,
+            'password' => $pw,
         ];
         
-        $akun = User::findorfail($id);
+        
         $akun->update($data);
         return redirect()->to('user')->with('success','Berhasil melakukan update data!');
     }

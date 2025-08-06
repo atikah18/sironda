@@ -21,9 +21,9 @@
     <a href="{{ url('user') }}" class="btn btn-secondary"><< Kembali</a>
         <div class="my-3 p-3 bg-body rounded shadow-sm">
             <div class="mb-3 row">
-                <label for="nama" class="col-sm-2 col-form-label">Nama </label>
+                <label for="name" class="col-sm-2 col-form-label">Nama </label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name='nama' value="{{ old('nama', $data->name) }}" id="nama">
+                        <input type="text" class="form-control" name='name' value="{{ old('name', $data->name) }}" id="name">
                     </div>
             </div>
             <div class="mb-3 row">
@@ -67,7 +67,20 @@
                         </select>
                     </div>
             </div>
-            @endif
+@endif
+@if ($user->role <> "1")
+ <div class="mb-3 row">
+                <label for="role" class="col-sm-2 col-form-label">Role</label>
+                    <div class="col-sm-10">
+                        <select class="form-control select2" style="width: 100%;" name="role" id="role">
+                        <!-- <option disabled value="">Pilih Role</option> -->
+                          
+                             <option disabled value=2 <?php echo ($data->role == "2") ? 'selected ' : ''; ?>>Ketua</option>
+                              <option disabled value=3 <?php echo ($data->role == "3") ? 'selected ' : ''; ?>>Anggota</option>
+                        </select>
+                    </div>
+            </div>
+@endif
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label"></label>
                     <div class="col-sm-10">

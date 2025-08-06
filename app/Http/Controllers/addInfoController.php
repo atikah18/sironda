@@ -67,11 +67,11 @@ class addInfoController extends Controller
         $request->validate([
         'folder_aplikasi'=>'required',
         'nama_db'=>'required',
-        'status'=>'required',
+        // 'status'=>'required',
         ],[
         'folder_aplikasi.required'=>'folder_aplikasi harus diisi',
         'nama_db.required'=>'nama_db harus diisi',
-        'status.required'=>'status harus diisi',
+        // 'status.required'=>'status harus diisi',
         ]);
 
        date_default_timezone_set('Asia/Jakarta');
@@ -79,7 +79,7 @@ class addInfoController extends Controller
         $data = [
             'folder_aplikasi' => $request->folder_aplikasi,
             'nama_db' => $request->nama_db,
-            'status' => $request->status,
+            // 'status' => $request->status,
             'update_note' => 'diedit pada '.now().' oleh '.$user,
         ];
         
