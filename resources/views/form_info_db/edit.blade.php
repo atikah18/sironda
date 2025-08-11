@@ -18,7 +18,7 @@
     <form action='{{ url('addInfo/'.$data->id) }}' method='post' id="form">
     @csrf
     @method('PUT')
-    <a href="{{ url('home') }}" class="btn btn-secondary"><< Kembali</a>
+    <a href="{{ url('addInfo') }}" class="btn btn-secondary"><< Kembali</a>
         <div class="my-3 p-3 bg-body rounded shadow-sm">
             <div class="mb-3 row">
                 <label for="folder_aplikasi" class="col-sm-2 col-form-label">Folder Aplikasi </label>

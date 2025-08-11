@@ -35,32 +35,34 @@
             <ul class="navbar-nav ">
                  <li class="nav-item"><a class="nav-link active" aria-current="page"  href="{{ url('home') }}">Beranda</a></li>
                         <!-- <li class="nav-item"><a class="nav-link" href="#">Link</a></li> -->
-                        @if($user!=null)  
-                        <li class="nav-item dropdown">
+                        @if(auth()->user()!=null)  
+                         <li class="nav-item"><a class="nav-link active" aria-current="page"  href='{{ url('addInfo') }}'>Informasi Aplikasi</a></li>
+                          <li class="nav-item"><a class="nav-link active" aria-current="page"  href="{{ url('penjadwalan')}}">Kegiatan Monitoring</a></li>
+                        <!-- <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Monitoring backup</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <!-- <li><a class="dropdown-item" href="{{ url('jadwal') }}">Kalendar</a></li> -->
+                                 <li><a class="dropdown-item" href="{{ url('jadwal') }}">Kalendar</a></li> 
                                  <li><a class="dropdown-item" href="{{ url('penjadwalan') }}">Jadwal Monitoring</a></li>
                                 <li><a class="dropdown-item" href="{{ url('reports') }}">Laporan Monitoring backup/restore</a></li>
                                 <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href='{{ url('addInfo/create') }}'>Update Informasi Aplikasi Server</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                         <li class="nav-item"><a class="nav-link active" aria-current="page"  href="{{ url('user') }}">Akun</a></li>
                         @endif
                 <li class="nav-item dropdown">
 
                     <a class="nav-link dropdown-toggle " id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    @if($user!=null) 
-                <li><a class="dropdown-item disabled">{{ $user->name }}</a></li>
-                @if ($user->role == "1")
+                    @if(auth()->user()!=null) 
+                <li><a class="dropdown-item disabled">{{ auth()->user()->name }}</a></li>
+                @if (auth()->user()->role == "1")
                <li class="dropdown-item disabled" >Admin</div></li>
                 @endif
-                @if ($user->role == "2")
+                @if (auth()->user()->role == "2")
                  <li><a class="dropdown-item disabled" >Ketua</a></li>
                 @endif
-                @if ($user->role == "3")
+                @if (auth()->user()->role == "3")
                  <li><a class="dropdown-item disabled" >Anggota</a></li>
                 @endif 
                         <a class="nav-link text-black" href="{{ url('logout') }}">
@@ -72,11 +74,11 @@
                    
                     <!-- <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        {{ $user->name }}
-                        ({{ $user->role }})
+                        {{ auth()->user()->name }}
+                        ({{ auth()->user()->role }})
                     </div> -->
                     @endif
-                    @if ($user==null)
+                    @if (auth()->user()==null)
                     <li><a class="dropdown-item" href="{{ url('/login') }}">Login Akun</a></li>
                     @endif
                     </ul>
@@ -107,7 +109,7 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-layer-group"></i></div>
                                 Kelas Jabatan
                             </a>
-                    @if ($user==null)
+                    @if (auth()->user()==null)
                     <li>
                         <a class="nav-link" href="{{ url('/simfoni/admin') }}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-right-to-bracket"></i></div>
@@ -115,7 +117,7 @@
                             </a>
                     </li>
                     @endif
-                    @if($user!=null)
+                    @if(auth()->user()!=null)
                             <div class="sb-sidenav-menu-heading">Master</div>
                             <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseubah" aria-expanded="false" aria-controls="pagesCollapse">
                                 <div><i class="fa-solid fa-file-pen"></i> Perubahan Data</div>
@@ -146,8 +148,8 @@
                    
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        {{ $user->name }}
-                        ({{ $user->role }})
+                        {{ auth()->user()->name }}
+                        ({{ auth()->user()->role }})
                     </div>
                     @endif
                 </nav>

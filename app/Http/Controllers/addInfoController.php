@@ -5,8 +5,28 @@ use App\Models\List_db;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\Tasks;
 class addInfoController extends Controller
 {
+     public function index()
+    {
+       $user = Auth::user();
+        $data = List_db::all();
+
+        $tasks = Tasks::all();
+
+    $events = [];
+
+    foreach ($tasks as $task) {
+        $events[] = [
+            'title' => $task->user->name ?? 'Laporan',
+            'start' => $task->start_date_range,
+            'user' => $task->user->name, // Optional
+            'color' => $task->type == '1' ? '#0073b7' : '#f39c12' 
+        ];
+    }
+        return view('sironda.infodb', compact('data','user','events'));
+    }
      public function show(string $id)
     {
     $user = Auth::user();
