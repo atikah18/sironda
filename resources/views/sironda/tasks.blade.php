@@ -26,7 +26,7 @@
     <table id="dataTable" class="datatable-table">
         <thead>
             <tr>
-                <th scope="col" >Mulai tanggal</th>
+               <th scope="col" class="sorting sorting_desc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Mulai tanggal: activate to sort column ascending" style="width: 94.1875px;" aria-sort="descending">Mulai tanggal</th>
                 <th scope="col">Hingga tanggal</th>
                 <th scope="col">Nama Petugas</th>
                 <th scope="col">Jenis</th>
@@ -229,5 +229,17 @@
 </div>
 </div>
     <!-- AKHIR DATA -->
- 
+<!-- Load jQuery dulu -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Lalu DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+$(document).ready(function () {
+    var table = $('#dataTable').DataTable();
+    table.order([0, 'desc']).draw(); // 2 = index of "Mulai tanggal"
+});
+</script>
+
+
 @endsection
