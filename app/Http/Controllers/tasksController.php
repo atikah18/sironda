@@ -9,6 +9,8 @@ use App\Models\Backup_reports;
 use App\Models\User;
 use App\Notifications\TaskAssigned;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class tasksController extends Controller
 {
@@ -97,71 +99,92 @@ class tasksController extends Controller
                 'update_note' => 'diajukan oleh '.$user.' pada '.now()
             ]);
 
-            // Notify user
-            // $assignedUser = User::find($request->user_id);
-            // if ($assignedUser) {
-            //     $assignedUser->notify(new TaskAssigned($task, $request->daterange));
-            // }
-            // ci 3:
-//   $email = $this->db->query(
-// 					'SELECT email FROM pegawai 
-// 					where id_level_user = 1 ')->result();
-			
-// 				foreach($email as $x) 	
-// 					{
+            // Kirim email ke petugas
+            $assignedUser = User::find($request->user_id);
+            if ($assignedUser) {
+                // mapping type ke nama
+                if ($task->type == 1) {
+                    $typeName = 'Mingguan';
+                } elseif ($task->type == 2) {
+                    $typeName = 'Bulanan';
+                } else {
+                    $typeName = 'Tidak Diketahui';
+                }
 
-// 					$config = [
-// 						'mailtype'  => 'html',
-// 						'charset'   => 'utf-8',
-// 						'protocol'  => 'smtp',
-// 						'smtp_host' => 'smtp.bps.go.id',
-// 						'smtp_user' => 'kasieipd3600@bps.go.id', 
-// 						'smtp_pass'   => 'cow9tall',  
-// 						'smtp_crypto' => 'ssl',
-// 						'smtp_port'   => 465,
-// 						'crlf'    => "\r\n",
-// 						'newline' => "\r\n"
-// 					];
+                if ($task->type == 1) {
+                    $typeBack = 'Backup';
+                } elseif ($task->type == 2) {
+                    $typeBack = 'Backup dan Restore';
+                } else {
+                    $typeBack = 'Tidak Diketahui';
+                }
 
-// 				// Load library email dan konfigurasinya
-// 				$this->load->library('email', $config);
+                $start = $task->start_date_range;
+                $end = $task->end_date_range;
+                $startFormatted = date('d-m-Y', strtotime($start));
+                $endFormatted   = date('d-m-Y', strtotime($end));
+                $upperName = strtoupper($assignedUser->name);
 
-// 				// Email dan nama pengirim
-// 				$this->email->from('MPTIBanten@jawarastatistik.id', 'Tim MPTI 3600 - LINKZUM');
+               $details = [
+                'subject' => 'Tugas Baru dari Ketua Tim Untuk Melakukan ' . $typeBack . ' Database Server Aplikasi Pada OS Windows',
+                'body' => '
+                    <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                        <p style="margin-bottom: 10px; font-size: 14px;">
+                            ' . $upperName . ',
+                        </p>
+                        
+                        <p style="margin-bottom: 15px; font-size: 14px;">
+                            Anda mendapatkan <strong style="color: green;">tugas baru</strong> dari <strong>Ketua Tim</strong>:
+                        </p>
+                        
+                        <table cellpadding="5" cellspacing="0" border="0" style="border-collapse: collapse; font-size: 14px;">
+                            <tr>
+                                <td style="font-weight: bold;">Mulai:</td>
+                                <td>' . htmlspecialchars($startFormatted) . '</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Selesai:</td>
+                                <td>' . htmlspecialchars($endFormatted) . '</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Jenis:</td>
+                                <td>' . htmlspecialchars($typeName) . '</td>
+                            </tr>
+                        </table>
+                        
+                        <p style="margin-top: 15px; font-size: 14px;">
+                            Silakan login ke aplikasi untuk detail lebih lanjut:
+                            <a href="https://jws.jawarastatistik.id/sironda/" style="color: #007bff; text-decoration: none;">
+                                SiRonda
+                            </a>.
+                        </p>
+                    </div>
+                '
+            ];
 
-// 				// Email penerima
-// 				$this->email->to($x->email);
+                try {
+                    Mail::send([], [], function ($message) use ($assignedUser, $details) {
+                        $message->to($assignedUser->email)
+                                ->subject($details['subject'])
+                                ->html($details['body']);
+                    });
+                } catch (\Exception $e) {
+                    Log::error('Gagal kirim email penugasan: '.$e->getMessage());
+                }
+            }
 
-// 				// Subject email
-// 				$kegiatan = $this->input->post('nama_kegiatan');
-// 				$this->email->subject($kegiatan);
-			
-// 				// Isi email
-// 				$mulai = $this->input->post('waktu_mulai');
-// 		// $mulai_formatted = date('d-m-Y', strtotime($mulai));
-
-// 				$this->input->post('id_fungsi');
-				
-// 				$fungsi = $this->db->query('SELECT nama_fungsi from fungsi JOIN pegawai ON pegawai.id_fungsi = fungsi.id_fungsi')->row();
-
-// 				$selesai = $this->input->post('waktu_selesai');
-
-
-// 				$this->email->message("[No-Reply] <br> LINK-ZUM (Layanan Pemanfaatan Zoom Meeting BPS Provinsi Banten) <br><br>Kepada Tim Admin Aplikasi LINK-ZUM, mohon untuk dapat memberikan link dan approved Permintaan Link Zoom untuk kegiatan berikut :<br><br><strong>".$kegiatan."</strong> <br><br>Waktu Mulai Kegiatan   : ".date('d-m-Y H:i:s', strtotime($mulai))." WIB <br>Waktu Selesai kegiatan : ".date('d-m-Y H:i:s', strtotime($selesai))." WIB<br><br>Demikian yang dapat diinfokan. Atas kerjasamanya diucapkan terima kasih<br> <a href='https://jawarastatistik.id/linkzum/'>Lanjut Untuk Approval</a> ");
-
-// 	     		$this->email->send();
             return redirect()->to('penjadwalan')->with('success','Berhasil menambahkan data');
         }
     }
     public function update(Request $request, string $id)
     {
-       Session::flash('user_id',$request->user_id);
+      Session::flash('user_id',$request->user_id);
         Session::flash('daterange',$request->daterange);
         Session::flash('type',$request->type);
         // Session::flash('is_abk',$request->is_abk);
 
        $dates = explode(' - ', $request->daterange);
-// dd($request->daterange);
+        // dd($request->daterange);
         $start = $dates[0];
         $end   = $dates[1];
         date_default_timezone_set('Asia/Jakarta');
@@ -199,6 +222,80 @@ class tasksController extends Controller
         
         $app = Tasks::findorfail($id);
         $app->update($data);
+         // Kirim email notifikasi update
+        $assignedUser = User::find($request->user_id);
+        if ($assignedUser) {
+            // Mapping jenis
+            if ($request->type == 1) {
+                $typeName = 'Mingguan';
+            } elseif ($request->type == 2) {
+                $typeName = 'Bulanan';
+            } else {
+                $typeName = 'Tidak Diketahui';
+            }
+
+            if ($request->type == 1) {
+                $typeBack = 'Backup';
+            } elseif ($request->type == 2) {
+                $typeBack = 'Backup dan Restore';
+            } else {
+                $typeBack = 'Tidak Diketahui';
+            }
+
+            $startFormatted = date('d-m-Y', strtotime($start));
+            $endFormatted   = date('d-m-Y', strtotime($end));
+            $upperName = strtoupper($assignedUser->name);
+
+           $details = [
+            'subject' => 'Tugas Anda Untuk Melakukan ' . $typeBack . ' Telah Diperbarui',
+            'body' => '
+                <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                    <p style="margin-bottom: 10px; font-size: 14px;">
+                        ' . $upperName . ',
+                    </p>
+
+                    <p style="margin-bottom: 15px; font-size: 14px;">
+                        Tugas Anda telah
+                        <strong style="color: #007bff;">diperbarui</strong>
+                        oleh
+                        <strong>' . htmlspecialchars($user) . '</strong>:
+                    </p>
+
+                    <table cellpadding="5" cellspacing="0" border="0" style="border-collapse: collapse; font-size: 14px;">
+                        <tr>
+                            <td style="font-weight: bold;">Mulai:</td>
+                            <td>' . htmlspecialchars($startFormatted) . '</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Selesai:</td>
+                            <td>' . htmlspecialchars($endFormatted) . '</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Jenis:</td>
+                            <td>' . htmlspecialchars($typeName) . '</td>
+                        </tr>
+                    </table>
+
+                    <p style="margin-top: 15px; font-size: 14px;">
+                            Silakan login ke aplikasi untuk detail lebih lanjut:
+                            <a href="https://jws.jawarastatistik.id/sironda/" style="color: #007bff; text-decoration: none;">
+                                SiRonda
+                            </a>.
+                        </p>
+                </div>
+            '
+        ];
+
+            try {
+                Mail::send([], [], function ($message) use ($assignedUser, $details) {
+                    $message->to($assignedUser->email)
+                            ->subject($details['subject'])
+                            ->html($details['body']);
+                });
+            } catch (\Exception $e) {
+                Log::error('Gagal kirim email update task: ' . $e->getMessage());
+            }
+        }
         return redirect()->to('penjadwalan')->with('success','Berhasil melakukan update data!');
     }
 
@@ -207,7 +304,72 @@ class tasksController extends Controller
      */
     public function destroy(string $id)
     {
-         Tasks::where('id', $id)->delete();
+        // Ambil task sebelum dihapus
+        $task = Tasks::findOrFail($id);
+        $assignedUser = User::find($task->user_id);
+
+        // Hapus task
+        $task->delete();
+
+        // Kirim email notifikasi untuk hapus data
+        if ($assignedUser) {
+            // mapping type ke nama
+            if ($task->type == 1) {
+                $typename = 'Mingguan';
+            } elseif ($task->type == 2) {
+                $typename = 'Bulanan';
+            } else {
+                $typename = 'Tidak Diketahui';
+            }
+
+            $startFormatted = date('d-m-Y', strtotime($task->start_date_range));
+            $endFormatted   = date('d-m-Y', strtotime($task->end_date_range));
+            $upperName = strtoupper($assignedUser->name);
+            
+            $details = [
+                'subject' => 'Tugas Anda Telah Dihapus',
+                'body' => '
+                    <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                        <p style="margin-bottom: 10px; font-size: 14px;">
+                            ' . $upperName . ',
+                        </p>
+                        
+                        <p style="margin-bottom: 15px; font-size: 14px;">
+                            Tugas yang diberikan telah <strong style="color: red;">dihapus</strong>:
+                        </p>
+                        
+                        <table cellpadding="5" cellspacing="0" border="0" style="border-collapse: collapse; font-size: 14px;">
+                            <tr>
+                                <td style="font-weight: bold;">Jenis:</td>
+                                <td>' . htmlspecialchars($typename) . '</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Mulai:</td>
+                                <td>' . htmlspecialchars($startFormatted) . '</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Selesai:</td>
+                                <td>' . htmlspecialchars($endFormatted) . '</td>
+                            </tr>
+                        </table>
+                        
+                        <p style="margin-top: 15px; font-size: 14px;">
+                            Mohon abaikan tugas ini karena sudah tidak berlaku.
+                        </p>
+                    </div>
+                '
+            ];
+            try {
+                Mail::send([], [], function ($message) use ($assignedUser, $details) {
+                    $message->to($assignedUser->email)
+                            ->subject($details['subject'])
+                            ->html($details['body']);
+                });
+            } catch (\Exception $e) {
+                Log::error('Gagal kirim email penghapusan task: ' . $e->getMessage());
+            }
+        }
+
         return redirect()->to('penjadwalan')->with('success','Berhasil menghapus data!');
     }
     

@@ -24,6 +24,14 @@ Route::middleware(['auth'])->group(function(){
 // });
 Route::resource('addInfo', addInfoController::class);
 Route::resource('penjadwalan', tasksController::class);
+
+// Route::get('/penjadwalan/create', [tasksController::class, 'create'])
+//      ->name('penjadwalan.create');
+// Route::get('/penjadwalan', [tasksController::class, 'index'])->name('penjadwalan.index');
+// Route::post('/penjadwalan', [tasksController::class, 'store'])->name('penjadwalan.store');
+// Route::get('/penjadwalan/{id}', [tasksController::class, 'show'])->name('penjadwalan.show'); // pakai show untuk edit
+// Route::put('/penjadwalan/{id}', [tasksController::class, 'update'])->name('penjadwalan.update');
+// Route::delete('/penjadwalan/{id}', [tasksController::class, 'destroy'])->name('penjadwalan.destroy');
 // Route::get('/reports', reportsController::class);
 Route::get('/reports/create/{id}', [reportsController::class, 'create'])
      ->name('reports.create');

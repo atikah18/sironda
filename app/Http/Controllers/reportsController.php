@@ -9,6 +9,8 @@ use App\Models\Backup_reports;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class reportsController extends Controller
 {
@@ -125,6 +127,80 @@ class reportsController extends Controller
                 'status' => '1',
                 'update_note' => 'diajukan oleh '.$user.' pada '.now()
             ]);
+            // Kirim email ke Ketua
+            $assignedUser = User::find($task->user_id);
+            if ($assignedUser) {
+                // mapping type ke nama
+                if ($task->type == 1) {
+                    $typeName = 'Mingguan';
+                } elseif ($task->type == 2) {
+                    $typeName = 'Bulanan';
+                } else {
+                    $typeName = 'Tidak Diketahui';
+                }
+
+                if ($task->type == 1) {
+                    $typeBack = 'Backup';
+                } elseif ($task->type == 2) {
+                    $typeBack = 'Backup dan Restore';
+                } else {
+                    $typeBack = 'Tidak Diketahui';
+                }
+
+                $start = $task->start_date_range;
+                $end = $task->end_date_range;
+                $startFormatted = date('d-m-Y', strtotime($start));
+                $endFormatted   = date('d-m-Y', strtotime($end));
+                $upperName = strtoupper($assignedUser->name);
+
+               $details = [
+                'subject' => 'Notifikasi SiRonda: ' . $upperName . ' telah mengupload Laporan Kegiatan ' . $typeBack . ' Database Server Aplikasi Pada OS Windows',
+                'body' => '
+                    <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                        <p style="margin-bottom: 10px; font-size: 14px;">
+                             [No-Reply],
+                        </p>
+                        
+                        <p style="margin-bottom: 15px; font-size: 14px;">
+                            ' . $upperName . ' sudah mengupload <strong style="color: green;">tugas</strong> :
+                        </p>
+                        
+                        <table cellpadding="5" cellspacing="0" border="0" style="border-collapse: collapse; font-size: 14px;">
+                            <tr>
+                                <td style="font-weight: bold;">Mulai:</td>
+                                <td>' . htmlspecialchars($startFormatted) . '</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Selesai:</td>
+                                <td>' . htmlspecialchars($endFormatted) . '</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Jenis:</td>
+                                <td>' . htmlspecialchars($typeName) . '</td>
+                            </tr>
+                        </table>
+                        
+                        <p style="margin-top: 15px; font-size: 14px;">
+                            Silakan login ke aplikasi untuk detail lebih lanjut:
+                            <a href="https://jws.jawarastatistik.id/sironda/" style="color: #007bff; text-decoration: none;">
+                                SiRonda
+                            </a>.
+                        </p>
+                    </div>
+                '
+            ];
+
+                try {
+                    Mail::send([], [], function ($message) use ($assignedUser, $details) {
+                        $message->to($assignedUser->email) //GANTI EMAIL KETUA
+                                ->subject($details['subject'])
+                                ->html($details['body']);
+                    });
+                } catch (\Exception $e) {
+                    Log::error('Gagal kirim email penugasan: '.$e->getMessage());
+                }
+            }
+
             return redirect()->to('reports')->with('success','Berhasil menambahkan data');
         }
     }

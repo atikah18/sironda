@@ -150,8 +150,8 @@
                 <td>{{ $item->update_note }}</td>
                 <td>
                     
-                    <a href='{{ url('penjadwalan/'.$item->task_id) }}' class="btn btn-warning btn-sm">Edit</a>
-                    <form onsubmit="return confirm('Yakin akan menghapus data?')" class="d-inline" action="{{ url('penjadwalan/'.$item->task_id) }}" method="POST">
+                    <a href='{{ url('penjadwalan/'.$item->id) }}' class="btn btn-warning btn-sm">Edit</a>
+                    <form onsubmit="return confirm('Yakin akan menghapus data?')" class="d-inline" action="{{ url('penjadwalan/'.$item->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" name="submit" class="btn btn-danger btn-sm">Hapus</button>
