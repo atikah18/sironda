@@ -46,7 +46,14 @@
             @foreach ($data as $item)
             @if (auth()->user()->role == "3")
             @if ($item->user->name == auth()->user()->name)
-            <tr>
+              @foreach ($reports as $item2)
+             
+             @php $hasReport = false; @endphp
+                    @if ($item2->task_id == $item->id)
+                    <tr>
+            @php $hasReport = true; @endphp
+                       
+                @endif
                 <td>{{ $item->start_date_range }}</td>
                 <td>{{ $item->end_date_range }}</td>
                 <td>{{ $item->user->name }}</td>
@@ -72,10 +79,9 @@
                     <a href='{{ url('reports/create/'.$item->id) }}' class="btn btn-success btn-sm">Upload</a>
                
                 </td>
-                @php $hasReport = false; @endphp
+               
 
-                @foreach ($reports as $item2)
-                    @if ($item2->task_id == $item->id)
+                   @if ($hasReport)
                         <td><button type="submit" name="submit" class="btn btn-success btn-sm" disabled>Sudah ada Laporan</button></td>
                         
               
@@ -99,7 +105,7 @@
                 <td>{{$item2->created_at  }}</td>
                  @if ($item2->status == "1")
                 
-                <td>
+                <td class="d-flex gap-2">
                     <a href='{{ url('reports/'.$item2->id) }}' class="btn btn-warning btn-sm">Edit</a>
                     <form onsubmit="return confirm('Yakin akan menghapus data?')" class="d-inline" action="{{ url('reports/'.$item2->id) }}" method="POST">
                         @csrf
@@ -110,10 +116,8 @@
                 </td>
                 @elseif ($item2->status <> "1") <td></td>
                 @endif
-                @php $hasReport = true; @endphp
-                        @break
-                    @endif
-                @endforeach
+               
+                @endif
 
                 @if (!$hasReport)
                     <td>Belum ada Laporan</td>
@@ -123,12 +127,23 @@
                     <td></td>
                  <td></td>
                     <td></td>
+                @break
                 @endif
+                @endforeach
             </tr>
             @endif
             @endif
             @if (auth()->user()->role <> "3")
-            <tr>
+              
+             @foreach ($reports as $item2)
+             
+             @php $hasReport = false; @endphp
+                    @if ($item2->task_id == $item->id)
+                    <tr>
+            @php $hasReport = true; @endphp
+                       
+                @endif
+                
                 <td>{{ $item->start_date_range }}</td>
                 <td>{{ $item->end_date_range }}</td>
                 <td>{{ $item->user->name }}</td>
@@ -148,7 +163,7 @@
                 <td>Rescheduled</td>
                 @endif
                 <td>{{ $item->update_note }}</td>
-                <td>
+                <td class="d-flex gap-2">
                     
                     <a href='{{ url('penjadwalan/'.$item->id) }}' class="btn btn-warning btn-sm">Edit</a>
                     <form onsubmit="return confirm('Yakin akan menghapus data?')" class="d-inline" action="{{ url('penjadwalan/'.$item->id) }}" method="POST">
@@ -162,10 +177,10 @@
                     <a href='{{ url('reports/create/'.$item->id) }}' class="btn btn-success btn-sm">Upload</a>
                      @endif
                 </td>
-                @php $hasReport = false; @endphp
+              
 
-                @foreach ($reports as $item2)
-                    @if ($item2->task_id == $item->id)
+               
+                        @if ($hasReport)
                         <td><button type="submit" name="submit" class="btn btn-success btn-sm" disabled>Sudah ada Laporan</button></td>
                        
                    
@@ -189,7 +204,7 @@
                 @endif
                 <td>{{$item2->created_at  }}</td>
                 
-                <td>
+                <td class="d-flex gap-2">
                  
                     <!-- <a href='' class="btn btn-success btn-sm">Terima</a> -->
                      <!-- <a href='' class="btn btn-secondary btn-sm">Tolak</a> -->
@@ -204,12 +219,10 @@
                         <button type="submit" name="submit" class="btn btn-secondary btn-sm">Tolak</button>
                     </form>
                 </td>
-               
-                 @php $hasReport = true; @endphp
-                        @break
+         
                  @endif
-                @endforeach
-
+                 
+                
                 @if (!$hasReport)
                   <td>Belum ada Laporan</td>
                     <td>  </td>
@@ -218,7 +231,9 @@
                     <td></td>
                     <td></td>
                 <td></td>
+                @break
                 @endif
+                @endforeach
             </tr>
             @endif
             @endforeach

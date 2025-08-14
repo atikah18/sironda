@@ -16,7 +16,7 @@ class homeController extends Controller
     public function index()
     {
        
-        $user = Auth::user();
+        $users = User::all();
         $data = List_db::all();
 
         $tasks = Tasks::all();
@@ -31,7 +31,7 @@ class homeController extends Controller
             'color' => $task->type == '1' ? '#0073b7' : '#f39c12' 
         ];
     }
-        return view('sironda.home', compact('data','user','events'));
+        return view('sironda.home', compact('data','users','events'));
     }
 
     public function export_excel()

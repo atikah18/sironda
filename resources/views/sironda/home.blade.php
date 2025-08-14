@@ -1,6 +1,6 @@
 @extends('layout.layoutnav')
 <!-- AdminLTE 3 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css"> -->
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -43,15 +43,17 @@ document.addEventListener('DOMContentLoaded', function() {
 <section class="content">
    
         <div class="container-fluid px-4">
+
             <div class="container mt-4">
                 <h2 class="text-center m-4">Jadwal Kegiatan</h2>
-                 <div class="card mb-4">
+                 <!-- <div class="card mb-4"> -->
                     <div class="d-flex align-items-center gap-3 mb-3">
                         <div> <span class="badge" style="background-color:#0073b7;">&nbsp;&nbsp;</span> Mingguan (backup) </div>
                         <div> <span class="badge" style="background-color:#f39c12;">&nbsp;&nbsp;</span> Bulanan (backup & restore) </div>
                     </div>
+                    
                     <div id="calendar"></div>
-                </div>
+                <!-- </div> -->
             </div>
         </div>
      

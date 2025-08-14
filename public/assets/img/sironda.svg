@@ -1,0 +1,18 @@
+<svg width="120" height="120" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SiRonda Icon - Backup Database Patroli Monitoring">
+  <!-- Background lingkaran biru -->
+  <circle cx="32" cy="32" r="30" fill="#0073b7"></circle>
+  
+  <!-- Database (silinder) -->
+  <ellipse cx="32" cy="40" rx="18" ry="7" fill="#a3c4f3"></ellipse>
+  <rect x="14" y="33" width="36" height="14" fill="#a3c4f3"></rect>
+  <ellipse cx="32" cy="33" rx="18" ry="7" fill="#83a9f1"></ellipse>
+  
+  <!-- Lampu sirine merah -->
+  <rect x="28" y="15" width="8" height="10" rx="2" ry="2" fill="#d32f2f"></rect>
+  <circle cx="32" cy="20" r="4" fill="#fff"></circle>
+  <rect x="30" y="17" width="4" height="6" fill="#d32f2f"></rect>
+  
+  <!-- Gelombang radar -->
+  <circle cx="32" cy="32" r="22" fill="none" stroke="#ffffffaa" stroke-width="2" stroke-dasharray="4 4"></circle>
+  <circle cx="32" cy="32" r="28" fill="none" stroke="#ffffff55" stroke-width="1" stroke-dasharray="2 6"></circle>
+</svg>

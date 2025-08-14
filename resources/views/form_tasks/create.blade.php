@@ -44,6 +44,7 @@
                     <div class="col-sm-10">
                         <!-- <input type="text" class="form-control" name='nama_petugas' value="{{ Session::get('nama_petugas') }}" id="nama_petugas"> -->
                         <select class="form-control select2" style="width: 100%;" name="type" id="type">
+                            <option></option>
                             <option value="1">Backup</option>
                             <option value="2">Restore</option>
                         </select>

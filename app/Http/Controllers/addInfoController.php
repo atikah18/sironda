@@ -74,7 +74,7 @@ class addInfoController extends Controller
                 'status' => '1',
                 'update_note' => 'dibuat pada '.now().' oleh '.$user,
             ]);
-            return redirect()->to('home')->with('success','Berhasil menambahkan data');
+            return redirect()->to('addInfo')->with('success','Berhasil menambahkan data');
         }
     }
 
@@ -105,7 +105,7 @@ class addInfoController extends Controller
         
         $app = List_db::findorfail($id);
         $app->update($data);
-        return redirect()->to('home')->with('success','Berhasil melakukan update data!');
+        return redirect()->to('addInfo')->with('success','Berhasil melakukan update data!');
     }
 
     /**
@@ -114,6 +114,6 @@ class addInfoController extends Controller
     public function destroy(string $id)
     {
          List_db::where('id', $id)->delete();
-        return redirect()->to('home')->with('success','Berhasil menghapus data!');
+        return redirect()->to('addInfo')->with('success','Berhasil menghapus data!');
     }
 }
